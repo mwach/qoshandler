@@ -3,6 +3,7 @@ package itti.com.pl.qoshandler.ws;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
+import javax.xml.bind.annotation.XmlElement;
 
 import itti.com.pl.qoshandler.ws.dto.ExpirationParameter;
 
@@ -18,7 +19,7 @@ public interface QoSHandlerWS {
      * @return IsAdmitted
      */
     @WebResult(name="IsAdmitted") 
-    public boolean getAdmissionDecision(@WebParam(name = "metadataInformation") String metadataInformation);
+    public boolean getAdmissionDecision(@WebParam(name = "metadataInformation") @XmlElement(required=true, nillable=false) String metadataInformation);
 
     /**
      * This operation can be used to get a decision which transport should be used for the message. 
@@ -27,7 +28,7 @@ public interface QoSHandlerWS {
      * @return available transports
      */
     @WebResult(name="transport") 
-    public String[] getTransport(@WebParam(name = "messageID") String messageId);
+    public String[] getTransport(@WebParam(name = "messageID") @XmlElement(required=true, nillable=false) String messageId);
     
     /**
      * This operation can be used to get a decision which transport should be used to deliver the message to the next TSI-level hop. 
@@ -37,7 +38,8 @@ public interface QoSHandlerWS {
      * @return available transports
      */
     @WebResult(name="transport") 
-    public String[] getTransportByHop(@WebParam(name = "messageID") String messageId, @WebParam(name="nextHop") String nextHop);
+    public String[] getTransportByHop(@WebParam(name = "messageID") @XmlElement(required=true, nillable=false) String messageId, 
+            @WebParam(name="nextHop") @XmlElement(required=true, nillable=false) String nextHop);
 
     /**
      * This operation can be used to learn whether a message demands reliability or not.
@@ -45,7 +47,7 @@ public interface QoSHandlerWS {
      * @return IsReliable
      */
     @WebResult(name="IsReliable") 
-    public boolean getReliabilityParameters(@WebParam(name = "messageID") String messageId);
+    public boolean getReliabilityParameters(@WebParam(name = "messageID") @XmlElement(required=true, nillable=false) String messageId);
 
     /**
      * This operation can be used in order to get the message priority computed by the TACTICS_QoS_Handler_Service.
@@ -53,7 +55,7 @@ public interface QoSHandlerWS {
      * @return Possible values (as in ACP123(B)): 0 = „NORMAL”, 1 = „NON-URGENT”, 2 = „URGENT”.
      */
     @WebResult(name="priority") 
-    public int getPriority(@WebParam(name = "messageID") String messageId);
+    public int getPriority(@WebParam(name = "messageID") @XmlElement(required=true, nillable=false) String messageId);
 
     /**
      * This operation can be used to get the conditions under which the message expires. timeToLive is a timestamp; 
@@ -64,6 +66,6 @@ public interface QoSHandlerWS {
      * @return expirationParameters: timeToLive: timestamp [optional], hopLimit: Integer [optional], networkLimit: Integer [optional]
      */
     @WebResult(name="expirationParameters") 
-    public ExpirationParameter getExpirationParameters(@WebParam(name = "messageID") String messageId);
+    public ExpirationParameter getExpirationParameters(@WebParam(name = "messageID") @XmlElement(required=true, nillable=false) String messageId);
 
 }
