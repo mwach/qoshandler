@@ -1,0 +1,127 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+ <modelVersion>4.0.0</modelVersion>
+
+ <groupId>itti.com.pl</groupId>
+ <artifactId>qoshandler</artifactId>
+ <version>0.0.1-SNAPSHOT</version>
+ <packaging>jar</packaging>
+
+ <name>qoshandler</name>
+ <url>http://www.itti.com.pl/en/</url>
+
+ <properties>
+  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  <java.version>1.7</java.version>
+  <cxf.version>3.1.3</cxf.version>
+ </properties>
+
+ <dependencies>
+  <dependency>
+   <groupId>org.apache.cxf</groupId>
+   <artifactId>cxf-rt-frontend-jaxws</artifactId>
+   <version>${cxf.version}</version>
+  </dependency>
+
+  <dependency>
+   <groupId>org.apache.cxf</groupId>
+   <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+   <version>${cxf.version}</version>
+  </dependency>
+  <dependency>
+   <groupId>org.apache.cxf</groupId>
+   <artifactId>cxf-rt-transports-http</artifactId>
+   <version>${cxf.version}</version>
+  </dependency>
+  <dependency>
+   <groupId>org.apache.cxf</groupId>
+   <artifactId>cxf-rt-transports-local</artifactId>
+   <version>${cxf.version}</version>
+  </dependency>
+
+  <dependency>
+   <groupId>org.apache.cxf</groupId>
+   <artifactId>cxf-rt-transports-http-jetty</artifactId>
+   <version>${cxf.version}</version>
+  </dependency>
+
+  <dependency>
+   <groupId>org.slf4j</groupId>
+   <artifactId>slf4j-api</artifactId>
+   <version>1.7.5</version>
+  </dependency>
+
+  <dependency>
+   <groupId>ch.qos.logback</groupId>
+   <artifactId>logback-classic</artifactId>
+   <version>1.1.3</version>
+
+   <exclusions>
+    <exclusion>
+     <groupId>org.slf4j</groupId>
+     <artifactId>slf4j-log4j12</artifactId>
+    </exclusion>
+   </exclusions>
+  </dependency>
+
+  <dependency>
+   <groupId>junit</groupId>
+   <artifactId>junit</artifactId>
+   <version>4.11</version>
+   <scope>test</scope>
+  </dependency>
+  <dependency>
+   <groupId>org.mockito</groupId>
+   <artifactId>mockito-all</artifactId>
+   <version>1.9.5</version>
+   <scope>test</scope>
+  </dependency>
+ </dependencies>
+ <build>
+  <plugins>
+   <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.1</version>
+    <configuration>
+     <source>${java.version}</source>
+     <target>${java.version}</target>
+    </configuration>
+   </plugin>
+   <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-jar-plugin</artifactId>
+    <version>2.4</version>
+    <configuration>
+     <archive>
+      <manifest>
+       <addClasspath>true</addClasspath>
+       <mainClass>itti.com.pl.qoshandler.QoSHandlerApplication</mainClass>
+       <classpathPrefix>dependency-jars/</classpathPrefix>
+      </manifest>
+     </archive>
+    </configuration>
+   </plugin>
+
+   <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-dependency-plugin</artifactId>
+    <version>2.5.1</version>
+    <executions>
+     <execution>
+      <id>copy-dependencies</id>
+      <phase>package</phase>
+      <goals>
+       <goal>copy-dependencies</goal>
+      </goals>
+      <configuration>
+       <outputDirectory>
+        ${project.build.directory}/dependency-jars/
+       </outputDirectory>
+      </configuration>
+     </execution>
+    </executions>
+   </plugin>
+  </plugins>
+ </build>
+</project>
