@@ -1,6 +1,6 @@
 /**
  * 
- * File Constants.java
+ * File QoSHandlerRuntimeException.java
  *
  * Project: TACTICS
  *
@@ -33,19 +33,33 @@
  *
  * @author ITTI
  */
-package itti.com.pl.qoshandler;
+package itti.com.pl.qoshandler.exception;
 
 /**
- * Names of constants used in the code
+ * Custom runtime exception thrown by the application modules
  */
-public final class Constants {
+public class QoSHandlerRuntimeException extends RuntimeException {
 
-    private Constants() {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Constructor
+     * @param message message
+     * @param throwable original throwable
+     */
+    public QoSHandlerRuntimeException(String message, Throwable throwable) {
+        super(message, throwable);
     }
 
     /**
-     * QoS handler service endpoint
+     * Constructor
+     * @param message message
      */
-    public static final String ENDPOINT = "endpoint";
+    public QoSHandlerRuntimeException(String message) {
+        super(message);
+    }
 
 }
